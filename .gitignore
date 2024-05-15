@@ -1,0 +1,11 @@
+.cache
+.secret
+cache
+.DS_Store
+__pycache__
+tmp
+
+terraform.tfstate
+*.tfstate.*
+.terraform
+.terraform.lock.hcl

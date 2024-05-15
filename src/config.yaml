@@ -1,0 +1,71 @@
+centers:
+  HTAN HTAPP: 
+    center_id: hta1
+    synapse_id: syn20834712
+  HTAN PCAPP:
+    center_id: hta2
+    synapse_id: syn23511984
+  HTAN BU:
+    center_id: hta3
+    synapse_id: syn22124336
+  HTAN CHOP:
+    center_id: hta4
+    synapse_id: syn22776798
+  HTAN DFCI:
+    center_id: hta5
+    synapse_id: syn23511954
+  HTAN Duke:
+    center_id: hta6
+    synapse_id: syn23511961
+  HTAN HMS:
+    center_id: hta7
+    synapse_id: syn22123910
+  HTAN MSK:
+    center_id: hta8
+    synapse_id: syn23448901
+  HTAN OHSU:
+    center_id: hta9
+    synapse_id: syn22093319
+  HTAN Stanford:
+    center_id: hta10
+    synapse_id: syn23511964
+  HTAN Vanderbilt:
+    center_id: hta11
+    synapse_id: syn21050481
+  HTAN WUSTL:
+    center_id: hta12
+    synapse_id: syn22255320
+  HTAN TNP SARDANA:
+    center_id: hta13
+    synapse_id: syn24984270
+  HTAN TNP - TMA:
+    center_id: hta14 
+    synapse_id: syn22041595
+  HTAN SRRS: 
+    center_id: hta15
+    synapse_id: syn25555889
+  HTAN CASI TNP: 
+    center_id: hta16
+    synapse_id: syn52861417
+clinical_attributes:
+  - Demographics
+  - Diagnosis
+  - Exposure
+  - FamilyHistory
+  - FollowUp
+  - MolecularTest
+  - Therapy
+  - ClinicalDataTier2
+  - BreastCancerTier3
+  - LungCancerTier3
+  - SRRSClinicalDataTier2
+biospecimen_attributes:
+  - Biospecimen
+  - SRRSBiospecimen
+files:
+  - Level
+  - Other
+  - Auxiliary
+  - Minimal
+  - Accessory
+  - Experiment

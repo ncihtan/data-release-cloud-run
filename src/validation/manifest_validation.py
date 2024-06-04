@@ -26,7 +26,7 @@ def check_attributes(manifest, component, manifest_id):
                 pass
             else:
                 e = f'{req} is missing from DependsOn for manifest {manifest_id}'
-                print(f)
+                print(e)
                 continue
 
     else:

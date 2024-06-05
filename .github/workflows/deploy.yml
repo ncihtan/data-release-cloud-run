@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: us-central1-docker.pkg.dev
   GCP_PROJECT: htan-dcc
   CONTAINER_NAME: data-release-validatio
 

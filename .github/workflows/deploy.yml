@@ -77,7 +77,7 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan -target=google_cloud_run_v2_job.default -target=google_cloud_scheduler_job.job
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: terraform apply -target=google_cloud_run_v2_job.default -target=google_cloud_scheduler_job.job -auto-approve

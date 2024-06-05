@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - redeploy-action
   workflow_dispatch:
 
 jobs:

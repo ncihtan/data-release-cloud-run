@@ -1,6 +1,6 @@
 project_id = "htan-dcc"
 region = "us-east1"
-image_url = "us-docker.pkg.dev/htan-dcc/gcr.io/data-release-validation:latest"
+image_url = "ghcr.io/ncihtan/data-release-cloud-run:latest"
 secret_id = "synapse_service_pat" 
 
 # service account variables

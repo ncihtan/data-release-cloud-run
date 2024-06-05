@@ -15,25 +15,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: htan-dcc
+
     - name: Log in to Google Artifact Registry
-      env:
-        GCP_PROJECT: htan-dcc
-      run: |
-        echo ${{ secrets.GCP_SA_KEY }} | gcloud auth activate-service-account --key-file=-
-        gcloud auth configure-docker us-docker.pkg.dev
+      run: gcloud auth configure-docker us-docker.pkg.dev
 
     - name: Build and push Docker image
       run: |
         cd src
         docker build . -t us-docker.pkg.dev/htan-dcc/gcr.io/data-release-validation:${{ github.sha }}
         docker push us-docker.pkg.dev/htan-dcc/gcr.io/data-release-validation}:${{ github.sha }}
-
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
-      with:
-        version: 'latest'
-        project_id: htan-dcc
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1

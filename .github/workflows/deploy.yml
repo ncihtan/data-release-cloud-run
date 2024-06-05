@@ -45,13 +45,14 @@ jobs:
       - name: Build and push to GHCR
         uses: docker/build-push-action@v4
         with:
-          context: ./docker
+          context: ./src
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
 
   deploy-cloud-run:
     runs-on: ubuntu-latest
+    needs: build-container
 
     steps:
     - name: Checkout code

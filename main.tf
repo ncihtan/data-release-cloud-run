@@ -32,7 +32,10 @@ resource "google_cloud_run_v2_job" "default" {
             }
         }
         timeout = "2700s"
-        service_account = "${google_service_account.sa.email}"
+        service_account = coalesce(
+          length(google_service_account.sa) > 0 ? google_service_account.sa[0].email : null,
+          data.google_service_account.existing_sa.email
+        )
     }
   }
   lifecycle {

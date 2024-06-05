@@ -10,7 +10,7 @@ on:
 env:
   REGISTRY: us-central1-docker.pkg.dev
   GCP_PROJECT: htan-dcc
-  CONTAINER_NAME: data-release-validatio
+  CONTAINER_NAME: data-release-validation
 
 jobs:
   build-container:

@@ -9,6 +9,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  GCP_PROJECT: htan-dcc
+  CONTAINER_NAME: data-release-validatio
 
 jobs:
   build-container:
@@ -22,18 +24,19 @@ jobs:
       - name: Checkout GitHub Action
         uses: actions/checkout@v3
 
-      - name: Login to GitHub Container Registry (GHCR)
-        uses: docker/login-action@v2
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: Configure Docker to use Artifact Registry
+        run: gcloud auth configure-docker ${{ env.REGISTRY }}
 
       - name: Extract Docker metadata
         id: metadata
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}
+          images: ${{ env.REGISTRY }}/${{ env.GCP_PROJECT }}/${{ env.CONTAINER_NAME }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -42,13 +45,14 @@ jobs:
             type=sha
             latest
 
-      - name: Build and push to GHCR
+      - name: Build and push to Artifact Registry
         uses: docker/build-push-action@v4
         with:
           context: ./src
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
+
 
   deploy-cloud-run:
     runs-on: ubuntu-latest

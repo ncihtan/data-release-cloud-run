@@ -23,7 +23,7 @@ docker push us-docker.pkg.dev/<gc-project>/gcr.io/<image-name>
 ```
 
 ## Deploy Cloud Resources
-Define variables in [terraform.tfvars](https://github.com/ncihtan/bq-metadata-cloud-run/blob/main/terraform.tfvars). Variable descriptions can be found in [variables.tf](https://github.com/ncihtan/bq-metadata-cloud-run/blob/main/variables.tf)
+Define variables in [terraform.tfvars](https://github.com/ncihtan/data-release-cloud-run/blob/main/terraform.tfvars). Variable descriptions can be found in [variables.tf](https://github.com/ncihtan/data-release-cloud-run/blob/main/variables.tf)
 
 ```
 terraform init

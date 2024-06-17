@@ -196,6 +196,23 @@ def main():
       subset_cb_errors.astype(str).drop_duplicates().index]
 
    load_bq(client, bq_project, bq_dataset, 'clin_bio_errors', subset_cb_errors)
+   
+   # Create table showing release candidates and exclusions
+   man_rem_files = list(exclude['file id'])
+   man_rem_mani = list(exclude['manifest id'])
+   error_rem = list(error_list['entityId'])
+   clin_bio_rem = list(df_cb_errors['entityId'])
+   values = released_entities["entityId"]
+    
+   not_released = file_list.query("entityId not in @values") 
+   not_released["Exclusion_Reason"] = "Not Released; Candidate for Release"
+   not_released["Exclusion_Reason"] = not_released["Exclusion_Reason"].case_when([
+        (not_released['entityId'].isin(error_rem), "Automatically Excluded by Validation Checks, See: htan-dcc.data_release.errors"),
+        (not_released['entityId'].isin(clin_bio_rem), "Automatically Excluded As Clinical/Bio Error, See: htan-dcc.data_release.clin_bio_errors"),
+        (not_released['entityId'].isin(man_rem_files), "Manually Excluded File, See: https://docs.google.com/spreadsheets/d/1tUOd0kiQfW-cjnTbX24Tso5Gnq42k7sKQZLCLFLxBCA/edit#gid=688638089"), 
+        (not_released['Manifest_Id'].isin(man_rem_mani), "Manually Excluded Manifest, See: https://docs.google.com/spreadsheets/d/1tUOd0kiQfW-cjnTbX24Tso5Gnq42k7sKQZLCLFLxBCA/edit#gid=688638089")])
+
+   load_bq(client, bq_project, bq_dataset, 'not_released_or_excluded', not_released)
 
    print( '' )
    print( ' Done ' )

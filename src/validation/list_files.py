@@ -77,7 +77,10 @@ def FullFileList(meta_map, files):
                 cols = cols + ['Id']
             if 'Uuid' in df.columns:
                 cols = cols + ['Uuid']
-            
+            # If a manifest does not contain entityIds and is not one of the components that is expected to not have eids; skip adding these manifests to the full list.
+            if comp != 'AccessoryManifest' and comp != 'Biospecimen' and comp != 'SRRSBiospecimen':
+                if 'entityId' not in df.columns:
+                    continue
             file_list = pd.concat([file_list,df[cols]], 
                 axis=0, ignore_index=True
             )

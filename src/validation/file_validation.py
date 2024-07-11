@@ -70,7 +70,7 @@ def htan_id_regex(entities_to_release):
         
         try:
             match = bool(re.match(
-                r'HTA\d{1,2}_\d+_\d+$', 
+                r'HTA\d{1,2}_\d+_\d+$|HTA\d{1,2}_EXT\d{1,2}_\d+$', 
                 r['HTAN Data File ID'])
             )
         except:

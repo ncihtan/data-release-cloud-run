@@ -93,7 +93,16 @@ def main(args):
     job_config.query_parameters = parameters
 
     all_entities = client.query(query, job_config=job_config).result().to_dataframe()
-
+    
+    # Remove BAI files from released entity listings
+    bai_files = syn.tableQuery("SELECT id, currentVersion\
+        FROM syn20446927 WHERE type = 'file' \
+        AND name LIKE '%.bai' \
+        AND projectId NOT IN \
+        ('syn21989705','syn20977135','syn20687304','syn32596076','syn52929270')"
+        ).asDataFrame()
+        
+    all_entities = all_entities[~all_entities['entityId'].isin(bai_files['id'])].drop_duplicates()
 
     # create BigQuery table schema
     ent_schema = []
